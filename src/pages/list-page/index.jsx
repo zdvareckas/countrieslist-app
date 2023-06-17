@@ -1,8 +1,7 @@
 import React from 'react';
-import ListService from '../../services/list-service/list-service';
 import { Box, Button, Container, FormControl, InputLabel, MenuItem, Pagination, Select, Typography } from '@mui/material';
+import ListService from '../../services/list-service/list-service';
 import Filter from '../../components/filter';
-// import Pagination from '../../components/pagination';
 
 const ListPage = () => {
   const [list, setList] = React.useState([]);
@@ -58,23 +57,37 @@ const ListPage = () => {
 
   }, [filter, sort]);
 
-
-
   return (
-    <Container sx={{ my: 3, border: '1px solid red' }}>
+    <Container sx={{ my: 3 }}>
       <Typography variant='h3' fontWeight='bold'>Countries list app</Typography>
 
       <Box sx={{
         display: 'flex',
         justifyContent: 'space-between',
         width: '100%',
-        p: 1,
-        border: '1px solid red'
       }}>
         <Button variant='outlined'
+          sx={{
+            backgroundColor: '#90FF90',
+            border: 'none',
+            color: '#556255',
+            '&:hover': {
+              backgroundColor: '#ADFFAD',
+              border: 'none'
+            }
+          }}
           onClick={toggleFilter}
         >FILTER</Button>
         <Button variant='outlined'
+          sx={{
+            backgroundColor: '#90FF90',
+            border: 'none',
+            color: '#556255',
+            '&:hover': {
+              backgroundColor: '#ADFFAD',
+              border: 'none'
+            }
+          }}
           onClick={handleSort}
         >{sort === 'ASC' ? 'A-Z' : 'Z-A'}</Button>
       </Box>
@@ -94,7 +107,8 @@ const ListPage = () => {
             flexDirection: 'column',
             p: 1,
             m: 1,
-            border: '1px solid red'
+            borderRadius: 2,
+            backgroundColor: '#90FF90',
           }}>
           <Typography variant='body1'><b>Name:</b> {name}</Typography>
           <Typography variant='body1'><b>Region:</b> {region}</Typography>

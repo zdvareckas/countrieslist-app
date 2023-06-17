@@ -1,14 +1,15 @@
-import { Box, Button, Drawer, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
-import React from 'react'
+import React from 'react';
+import { Box, Button, Drawer, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
 
 const Filter = ({ filterOpen, toggleFilter, handleFilter, resetFilter }) => {
   return (
     <Drawer
-      elevation={3}
+      elevation={1}
       hideBackdrop
       PaperProps={{
         sx: {
-          p: 3
+          p: 3,
+          backgroundColor: '#C2FFC2'
         }
       }}
       open={filterOpen}
@@ -28,6 +29,7 @@ const Filter = ({ filterOpen, toggleFilter, handleFilter, resetFilter }) => {
 
       <Button
         variant='outlined'
+        color='error'
         sx={{ my: 4 }}
         onClick={resetFilter} >RESET</Button>
     </Drawer>
