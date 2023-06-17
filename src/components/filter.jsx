@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, Button, Drawer, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
+import { Box, Button, Drawer, FormControlLabel, IconButton, Radio, RadioGroup, Typography } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
-const Filter = ({ filterOpen, toggleFilter, handleFilter, resetFilter }) => {
+const Filter = ({ filterOpen, toggleFilter, handleFilter, resetFilter, filter }) => {
   return (
     <Drawer
       elevation={1}
-      hideBackdrop
+      variant='persistent'
       PaperProps={{
         sx: {
           p: 3,
@@ -13,11 +14,20 @@ const Filter = ({ filterOpen, toggleFilter, handleFilter, resetFilter }) => {
         }
       }}
       open={filterOpen}
-      onClose={toggleFilter}
     >
       <Box>
         <Typography variant='h5' fontWeight='bold'>Filter:</Typography>
-        <RadioGroup onChange={handleFilter}>
+
+        <IconButton
+          sx={{
+            position: 'absolute',
+            top: 0,
+            right: 0
+          }}
+          onClick={toggleFilter}
+        ><CloseIcon fontSize='large' /></IconButton>
+
+        <RadioGroup onChange={handleFilter} defaultValue={filter}>
           <FormControlLabel control={<Radio value='Americas' sx={{ pr: 1 }} />} label='Americas' />
           <FormControlLabel control={<Radio value='Asia' sx={{ pr: 1 }} />} label='Asia' />
           <FormControlLabel control={<Radio value='Africa' sx={{ pr: 1 }} />} label='Africa' />
@@ -34,6 +44,6 @@ const Filter = ({ filterOpen, toggleFilter, handleFilter, resetFilter }) => {
         onClick={resetFilter} >RESET</Button>
     </Drawer>
   )
-}
+};
 
-export default Filter
+export default Filter;

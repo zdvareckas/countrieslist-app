@@ -1,7 +1,9 @@
 import React from 'react';
-import { Box, Button, Container, FormControl, InputLabel, MenuItem, Pagination, Select, Typography } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 import ListService from '../../services/list-service/list-service';
 import Filter from '../../components/filter';
+import ListItem from './components/list-item';
+import PagePagination from '../../components/pagination';
 
 const ListPage = () => {
   const [list, setList] = React.useState([]);
@@ -78,6 +80,7 @@ const ListPage = () => {
           }}
           onClick={toggleFilter}
         >FILTER</Button>
+
         <Button variant='outlined'
           sx={{
             backgroundColor: '#90FF90',
@@ -93,6 +96,7 @@ const ListPage = () => {
       </Box>
 
       <Filter
+        filter={filter}
         handleFilter={handleFilter}
         toggleFilter={toggleFilter}
         filterOpen={filterOpen}
@@ -100,45 +104,16 @@ const ListPage = () => {
       />
 
       {currentList.map(({ name, region, area, }) => (
-        <Box
-          key={name}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            p: 1,
-            m: 1,
-            borderRadius: 2,
-            backgroundColor: '#90FF90',
-          }}>
-          <Typography variant='body1'><b>Name:</b> {name}</Typography>
-          <Typography variant='body1'><b>Region:</b> {region}</Typography>
-          <Typography variant='body1'><b>Area:</b> {area}</Typography>
-        </Box>
+        <ListItem key={name} name={name} region={region} area={area} />
       ))}
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Pagination
-          size="large"
-          count={Math.ceil(list.length / countriesPerPage)}
-          page={currentPage}
-          onChange={handlePaginationChange}
-        />
-        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-          <InputLabel>List length</InputLabel>
-          <Select
-            value={countriesPerPage}
-            label="Countries per page"
-            onChange={(e) => {
-              setCountriesPerPage(e.target.value)
-            }}
-          >
-            <MenuItem value={10}>10</MenuItem>
-            <MenuItem value={40}>40</MenuItem>
-            <MenuItem value={80}>80</MenuItem>
-            <MenuItem value={120}>120</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
+      <PagePagination
+        pageCount={Math.ceil(list.length / countriesPerPage)}
+        countriesPerPage={countriesPerPage}
+        currentPage={currentPage}
+        handlePaginationChange={handlePaginationChange}
+        setCountriesPerPage={setCountriesPerPage}
+      />
     </Container>
   )
 };
