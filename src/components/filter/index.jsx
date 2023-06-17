@@ -1,9 +1,11 @@
-import { Box, Button, Checkbox, Divider, Drawer, FormControlLabel, FormGroup, Radio, RadioGroup, Typography } from '@mui/material'
+import { Box, Button, Drawer, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material'
 import React from 'react'
 
 const Filter = ({ filterOpen, toggleFilter, handleFilter, resetFilter }) => {
   return (
     <Drawer
+      elevation={3}
+      hideBackdrop
       PaperProps={{
         sx: {
           p: 3
@@ -13,26 +15,21 @@ const Filter = ({ filterOpen, toggleFilter, handleFilter, resetFilter }) => {
       onClose={toggleFilter}
     >
       <Box>
-        <Typography variant='body1'>Region:</Typography>
+        <Typography variant='h5' fontWeight='bold'>Filter:</Typography>
         <RadioGroup onChange={handleFilter}>
           <FormControlLabel control={<Radio value='Americas' sx={{ pr: 1 }} />} label='Americas' />
           <FormControlLabel control={<Radio value='Asia' sx={{ pr: 1 }} />} label='Asia' />
           <FormControlLabel control={<Radio value='Africa' sx={{ pr: 1 }} />} label='Africa' />
           <FormControlLabel control={<Radio value='Europe' sx={{ pr: 1 }} />} label='Europe' />
           <FormControlLabel control={<Radio value='Oceania' sx={{ pr: 1 }} />} label='Oceania' />
+          <FormControlLabel control={<Radio value='smaller' sx={{ pr: 1 }} />} label='Smaller than Lithuania' />
         </RadioGroup>
       </Box>
 
-      <Divider sx={{ width: '120%' }} />
-
-      <Box>
-        <FormGroup onChange={handleFilter}>
-          <Typography variant='body1'>Smaller than Lithuania:</Typography>
-          <FormControlLabel control={<Checkbox value='smaller' />} label='Yes' />
-        </FormGroup>
-      </Box>
-
-      <Button onClick={resetFilter}>RESET</Button>
+      <Button
+        variant='outlined'
+        sx={{ my: 4 }}
+        onClick={resetFilter} >RESET</Button>
     </Drawer>
   )
 }
