@@ -8,10 +8,12 @@ const fetchAll = async (searchParams) => {
     return regionFilter;
 
   } if (searchParams === 'smaller') {
-    const smallerThanLTU = data.filter((x) => x.area < 65300);
+    const smallerThanLTU = data.filter((x) => x.area < data.find(({ name }) =>
+      name === 'Lithuania'
+    ).area);
 
     return smallerThanLTU;
-  }
+  };
 
   return data;
 }

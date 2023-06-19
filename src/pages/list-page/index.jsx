@@ -9,7 +9,7 @@ import { useSearchParams } from 'react-router-dom';
 const ListPage = () => {
   const [list, setList] = React.useState([]);
   const [filterOpen, setFilterOpen] = React.useState(false);
-  const [sort, setSort] = React.useState('');
+  const [sort, setSort] = React.useState('ASC');
 
   let [searchParams, setSearchParams] = useSearchParams();
 
@@ -25,12 +25,12 @@ const ListPage = () => {
   };
 
   const handleFilter = (e) => {
-    setSearchParams({ region: e.target.value });
+    setSearchParams({ filter: e.target.value });
     toggleFilter();
   };
 
   const resetFilter = () => {
-    setSearchParams('')
+    setSearchParams('');
     toggleFilter();
   };
 
@@ -48,15 +48,14 @@ const ListPage = () => {
 
   React.useEffect(() => {
     (async () => {
-      const data = await ListService.fetchAll(searchParams.get('region'));
+      const data = await ListService.fetchAll(searchParams.get('filter'));
 
-      if (sort === 'DSC' || sort === '') {
+      if (sort === 'ASC' || sort === '') {
         setList(data.sort())
-      } else if (sort === 'ASC') {
-        data.sort();
-        setList(data.reverse());
+      } else if (sort === 'DSC') {
+        setList(data.sort().reverse());
       }
-      setList(data);
+      setList(data.sort());
 
     })();
 
@@ -71,6 +70,7 @@ const ListPage = () => {
         justifyContent: 'space-between',
         width: '100%',
       }}>
+
         <Button variant='outlined'
           sx={{
             backgroundColor: '#90FF90',
@@ -84,21 +84,26 @@ const ListPage = () => {
           onClick={toggleFilter}
         >FILTER</Button>
 
-        <Button variant='outlined'
-          sx={{
-            backgroundColor: '#90FF90',
-            border: 'none',
-            color: '#556255',
-            '&:hover': {
-              backgroundColor: '#ADFFAD',
-              border: 'none'
-            }
-          }}
-          onClick={handleSort}
-        >{sort === 'ASC' ? 'A-Z' : 'Z-A'}</Button>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, }}>
+          <Typography>Sort:</Typography>
+          <Button variant='outlined'
+            sx={{
+              backgroundColor: '#90FF90',
+              border: 'none',
+              color: '#556255',
+              '&:hover': {
+                backgroundColor: '#ADFFAD',
+                border: 'none'
+              }
+            }}
+            onClick={handleSort}
+          >{sort === 'ASC' ? 'Z-A' : 'A-Z'}</Button>
+        </Box>
+
       </Box>
 
       <Filter
+        seachParams={searchParams}
         handleFilter={handleFilter}
         toggleFilter={toggleFilter}
         filterOpen={filterOpen}
