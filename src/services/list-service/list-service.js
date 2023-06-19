@@ -1,20 +1,17 @@
-const fetchAll = async (filter) => {
+const fetchAll = async (searchParams) => {
   const res = await fetch('https://restcountries.com/v2/all?fields=name,region,area');
   const data = await res.json();
 
-  if (filter !== '' && filter !== 'smaller') {
-    const regionFilter = data.filter((x) => x.region === filter);
+  if (searchParams !== null && searchParams !== 'smaller') {
+    const regionFilter = data.filter((x) => x.region === searchParams);
 
     return regionFilter;
 
-  } if (filter === 'smaller') {
+  } if (searchParams === 'smaller') {
     const smallerThanLTU = data.filter((x) => x.area < 65300);
 
     return smallerThanLTU;
   }
-  console.log(filter)
-  console.log({ dataReq: data })
-
 
   return data;
 }

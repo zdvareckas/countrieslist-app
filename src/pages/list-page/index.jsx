@@ -11,7 +11,7 @@ const ListPage = () => {
   const [filterOpen, setFilterOpen] = React.useState(false);
   const [sort, setSort] = React.useState('');
 
-  let [searchParams, setSearchParams] = useSearchParams({ region: '' });
+  let [searchParams, setSearchParams] = useSearchParams();
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [countriesPerPage, setCountriesPerPage] = React.useState(10);
@@ -30,7 +30,7 @@ const ListPage = () => {
   };
 
   const resetFilter = () => {
-    setSearchParams({ region: '' })
+    setSearchParams('')
     toggleFilter();
   };
 
@@ -50,8 +50,6 @@ const ListPage = () => {
     (async () => {
       const data = await ListService.fetchAll(searchParams.get('region'));
 
-      console.log({ dataWithParams: data });
-
       if (sort === 'DSC' || sort === '') {
         setList(data.sort())
       } else if (sort === 'ASC') {
@@ -64,8 +62,6 @@ const ListPage = () => {
     })();
 
   }, [sort, searchParams]);
-
-  console.log(searchParams.get('region'))
 
   return (
     <Container sx={{ my: 3 }}>
