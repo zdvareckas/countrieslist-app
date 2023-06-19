@@ -58,7 +58,6 @@ const ListPage = () => {
       }
       setList(data);
 
-
     })();
 
   }, [sort, searchParams]);
