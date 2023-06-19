@@ -2,7 +2,8 @@ import React from 'react';
 import { Box, Button, Drawer, FormControlLabel, IconButton, Radio, RadioGroup, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-const Filter = ({ filterOpen, toggleFilter, handleFilter, resetFilter, filter }) => {
+const Filter = ({ filterOpen, toggleFilter, handleFilter, resetFilter }) => {
+
   return (
     <Drawer
       elevation={1}
@@ -27,13 +28,13 @@ const Filter = ({ filterOpen, toggleFilter, handleFilter, resetFilter, filter })
           onClick={toggleFilter}
         ><CloseIcon fontSize='large' /></IconButton>
 
-        <RadioGroup onChange={handleFilter} defaultValue={filter}>
-          <FormControlLabel control={<Radio value='Americas' sx={{ pr: 1 }} />} label='Americas' />
-          <FormControlLabel control={<Radio value='Asia' sx={{ pr: 1 }} />} label='Asia' />
-          <FormControlLabel control={<Radio value='Africa' sx={{ pr: 1 }} />} label='Africa' />
-          <FormControlLabel control={<Radio value='Europe' sx={{ pr: 1 }} />} label='Europe' />
-          <FormControlLabel control={<Radio value='Oceania' sx={{ pr: 1 }} />} label='Oceania' />
-          <FormControlLabel control={<Radio value='smaller' sx={{ pr: 1 }} />} label='Smaller than Lithuania' />
+        <RadioGroup onChange={handleFilter}>
+          <FormControlLabel control={<Radio name='region' value='Americas' sx={{ pr: 1 }} />} label='Americas' />
+          <FormControlLabel control={<Radio name='region' value='Asia' sx={{ pr: 1 }} />} label='Asia' />
+          <FormControlLabel control={<Radio name='region' value='Africa' sx={{ pr: 1 }} />} label='Africa' />
+          <FormControlLabel control={<Radio name='region' value='Europe' sx={{ pr: 1 }} />} label='Europe' />
+          <FormControlLabel control={<Radio name='region' value='Oceania' sx={{ pr: 1 }} />} label='Oceania' />
+          <FormControlLabel control={<Radio name='region' value='smaller' sx={{ pr: 1 }} />} label='Smaller than Lithuania' />
         </RadioGroup>
       </Box>
 

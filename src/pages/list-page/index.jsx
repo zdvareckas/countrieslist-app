@@ -4,12 +4,14 @@ import ListService from '../../services/list-service/list-service';
 import Filter from '../../components/filter';
 import ListItem from './components/list-item';
 import PagePagination from '../../components/pagination';
+import { useSearchParams } from 'react-router-dom';
 
 const ListPage = () => {
   const [list, setList] = React.useState([]);
   const [filterOpen, setFilterOpen] = React.useState(false);
-  const [filter, setFilter] = React.useState('');
   const [sort, setSort] = React.useState('');
+
+  let [searchParams, setSearchParams] = useSearchParams({ region: '' });
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [countriesPerPage, setCountriesPerPage] = React.useState(10);
@@ -23,12 +25,12 @@ const ListPage = () => {
   };
 
   const handleFilter = (e) => {
-    setFilter(e.target.value);
+    setSearchParams({ region: e.target.value });
     toggleFilter();
   };
 
   const resetFilter = () => {
-    setFilter('');
+    setSearchParams({ region: '' })
     toggleFilter();
   };
 
@@ -46,7 +48,9 @@ const ListPage = () => {
 
   React.useEffect(() => {
     (async () => {
-      const data = await ListService.fetchAll(filter);
+      const data = await ListService.fetchAll(searchParams.get('region'));
+
+      console.log({ dataWithParams: data });
 
       if (sort === 'DSC' || sort === '') {
         setList(data.sort())
@@ -55,9 +59,13 @@ const ListPage = () => {
         setList(data.reverse());
       }
       setList(data);
+
+
     })();
 
-  }, [filter, sort]);
+  }, [sort, searchParams]);
+
+  console.log(searchParams.get('region'))
 
   return (
     <Container sx={{ my: 3 }}>
@@ -96,7 +104,6 @@ const ListPage = () => {
       </Box>
 
       <Filter
-        filter={filter}
         handleFilter={handleFilter}
         toggleFilter={toggleFilter}
         filterOpen={filterOpen}

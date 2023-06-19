@@ -12,6 +12,9 @@ const fetchAll = async (filter) => {
 
     return smallerThanLTU;
   }
+  console.log(filter)
+  console.log({ dataReq: data })
+
 
   return data;
 }
